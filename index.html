@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LTD Housing | Whitwick Holdings, LLC</title>
+<meta name="description" content="Whitwick Holdings, LLC property management — current rental listings, photos, and contact information.">
+<link rel="icon" href="images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #17140f;
+    --ivory: #faf8f3;
+    --panel: #f1ede3;
+    --gold: #a9822f;
+    --gold-light: #c9a25a;
+    --line: rgba(23, 20, 15, 0.12);
+    --max: 1080px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ivory);
+    color: var(--ink);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  img { max-width: 100%; display: block; }
+
+  .wrap {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* Arc rule — signature element echoing the logo's circular band */
+  .arc-rule {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold-light) 50%, transparent);
+    border: none;
+  }
+
+  /* ===== Header ===== */
+  header {
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+    position: sticky;
+    top: 0;
+    background: rgba(250, 248, 243, 0.92);
+    backdrop-filter: blur(8px);
+    z-index: 50;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .brand img {
+    height: 52px;
+    width: 52px;
+    object-fit: contain;
+  }
+
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+  }
+
+  .brand-text .name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .brand-text .sub {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: 2px;
+  }
+
+  nav {
+    display: flex;
+    gap: 32px;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  nav a {
+    position: relative;
+    padding-bottom: 4px;
+    transition: color 0.2s;
+  }
+
+  nav a:hover { color: var(--gold); }
+
+  .nav-toggle { display: none; }
+
+  /* ===== Hero ===== */
+  .hero {
+    padding: 96px 0 88px;
+    text-align: center;
+    position: relative;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 22px;
+  }
+
+  .hero h1 {
+    font-size: clamp(38px, 6vw, 64px);
+    line-height: 1.08;
+    max-width: 780px;
+    margin: 0 auto 22px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero p {
+    max-width: 520px;
+    margin: 0 auto 36px;
+    color: #4a4438;
+    font-size: 16px;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 15px 36px;
+    border: 1px solid var(--ink);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    transition: all 0.25s ease;
+  }
+
+  .btn:hover {
+    background: var(--ink);
+    color: var(--ivory);
+  }
+
+  .btn-gold {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .btn-gold:hover {
+    background: var(--gold);
+    color: var(--ivory);
+  }
+
+  /* ===== Section shared ===== */
+  section { padding: 88px 0; }
+
+  .section-head {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .section-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+
+  .section-head h2 {
+    font-size: clamp(30px, 4vw, 42px);
+  }
+
+  /* ===== Listing ===== */
+  .listing {
+    background: var(--panel);
+    border: 1px solid var(--line);
+  }
+
+  .listing-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+  }
+
+  .listing-gallery {
+    position: relative;
+  }
+
+  .listing-gallery-main {
+    aspect-ratio: 4 / 3;
+    background: #ded6c3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #8a7f63;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .listing-thumbs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .listing-thumbs div {
+    aspect-ratio: 1 / 1;
+    background: #e6dfcd;
+    border-right: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #a49873;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 4px;
+  }
+
+  .listing-thumbs div:last-child { border-right: none; }
+
+  .listing-info {
+    padding: 44px 44px 40px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .listing-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #4c7a4f;
+    margin-bottom: 18px;
+    width: fit-content;
+  }
+
+  .listing-status::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #4c7a4f;
+  }
+
+  .listing-info h3 {
+    font-size: 30px;
+    margin-bottom: 6px;
+  }
+
+  .listing-address {
+    font-size: 14px;
+    color: #6b6252;
+    margin-bottom: 24px;
+  }
+
+  .listing-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+
+  .listing-price span {
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    color: #6b6252;
+    letter-spacing: 0.05em;
+  }
+
+  .listing-specs {
+    display: flex;
+    gap: 28px;
+    margin: 26px 0 26px;
+    padding: 20px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .spec {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .spec .num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    color: var(--ink);
+  }
+
+  .spec .label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #837a64;
+    margin-top: 2px;
+  }
+
+  .listing-desc {
+    color: #4a4438;
+    font-size: 14.5px;
+    margin-bottom: 30px;
+    flex-grow: 1;
+  }
+
+  .listing-features {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 20px;
+    margin-bottom: 32px;
+    font-size: 13.5px;
+    color: #3a3527;
+  }
+
+  .listing-features li::before {
+    content: "—";
+    color: var(--gold);
+    margin-right: 8px;
+  }
+
+  /* ===== Contact ===== */
+  .contact-section {
+    background: var(--ink);
+    color: var(--ivory);
+  }
+
+  .contact-section .section-head h2 { color: var(--ivory); }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .contact-block {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    padding: 26px 0;
+    border-bottom: 1px solid rgba(250,248,243,0.14);
+  }
+
+  .contact-block .icon {
+    width: 38px;
+    height: 38px;
+    border: 1px solid var(--gold-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--gold-light);
+  }
+
+  .contact-block .label {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 6px;
+  }
+
+  .contact-block .value {
+    font-size: 18px;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(250,248,243,0.28);
+    color: var(--ivory);
+    font-family: 'Jost', sans-serif;
+    font-size: 14px;
+    padding: 10px 2px;
+    font-weight: 300;
+  }
+
+  .contact-form input::placeholder,
+  .contact-form textarea::placeholder {
+    color: rgba(250,248,243,0.45);
+  }
+
+  .contact-form input:focus,
+  .contact-form textarea:focus {
+    outline: none;
+    border-bottom-color: var(--gold-light);
+  }
+
+  .contact-form textarea { resize: vertical; min-height: 100px; }
+
+  .contact-form button {
+    margin-top: 8px;
+    background: var(--gold);
+    color: var(--ink);
+    border: none;
+    padding: 15px 28px;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    cursor: pointer;
+    width: fit-content;
+    transition: background 0.2s;
+  }
+
+  .contact-form button:hover { background: var(--gold-light); }
+
+  .form-note {
+    font-size: 12px;
+    color: rgba(250,248,243,0.5);
+    margin-top: -6px;
+  }
+
+  /* ===== Footer ===== */
+  footer {
+    padding: 36px 0;
+    text-align: center;
+    font-size: 12px;
+    color: #8a8067;
+    letter-spacing: 0.04em;
+  }
+
+  footer .arc-rule { margin-bottom: 28px; }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 860px) {
+    nav { display: none; }
+    .listing-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; gap: 44px; }
+    .hero { padding: 72px 0 64px; }
+    section { padding: 64px 0; }
+    .listing-thumbs { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap header-inner">
+    <div class="brand">
+      <img src="images/logo.png" alt="Whitwick Holdings, LLC logo">
+      <div class="brand-text">
+        <span class="name">LTD Housing</span>
+        <span class="sub">Whitwick Holdings, LLC</span>
+      </div>
+    </div>
+    <nav>
+      <a href="#listings">Listings</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-eyebrow">LTD Housing</div>
+    <h1>Well-kept homes, <em>managed with care</em></h1>
+    <p>Current rental availability from Whitwick Holdings. Browse the listing below, or reach out and we'll help you find the right fit.</p>
+    <a href="#listings" class="btn">View Availability</a>
+  </div>
+</section>
+
+<hr class="arc-rule">
+
+<section id="listings">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-eyebrow">Available Now</div>
+      <h2>Current Listing</h2>
+    </div>
+
+    <div class="listing">
+      <div class="listing-grid">
+        <div class="listing-gallery">
+          <div class="listing-gallery-main">Whitwick Lane — Add Main Photo</div>
+          <div class="listing-thumbs">
+            <div>Photo 2</div>
+            <div>Photo 3</div>
+            <div>Photo 4</div>
+            <div>Photo 5</div>
+          </div>
+        </div>
+        <div class="listing-info">
+          <span class="listing-status">Available Now</span>
+          <h3>Whitwick Lane</h3>
+          <div class="listing-address">Creekside Living with Direct Trail Access &nbsp;·&nbsp; Bella Vista, AR</div>
+          <div class="listing-price">$2,350<span> / month</span></div>
+
+          <div class="listing-specs">
+            <div class="spec">
+              <span class="num">3</span>
+              <span class="label">Bedrooms</span>
+            </div>
+            <div class="spec">
+              <span class="num">2</span>
+              <span class="label">Bathrooms</span>
+            </div>
+            <div class="spec">
+              <span class="num">1,450</span>
+              <span class="label">Sq. Ft.</span>
+            </div>
+          </div>
+
+          <p class="listing-desc">
+            Welcome to Whitwick Lane, where privacy, nature, and convenience come together in one exceptional home. Situated on a 0.28-acre lot backing directly to a peaceful creek and Bella Vista's renowned trail system, this beautifully maintained home offers the perfect blend of comfort and outdoor living. Enjoy morning coffee or unwind after a long day on the spacious rear deck overlooking a wooded setting, with immediate access to miles of scenic hiking, walking, running, and mountain biking trails just beyond your backyard.
+          </p>
+
+          <p class="listing-desc">
+            Inside, you'll find bright, comfortable living spaces, a cozy gas fireplace, spacious bedrooms, and a layout designed for everyday living and entertaining. A washer and dryer are included, and the basement provides valuable storage for bicycles, outdoor gear, and seasonal items — perfect for Bella Vista's active lifestyle. Located just 15 minutes from Walmart's corporate headquarters with quick access to golf courses, lakes, parks, pickleball, kayaking, recreation centers, dining, shopping, and the expanding OZ Trails network including the new OZ Trail Bike Park.
+          </p>
+
+          <ul class="listing-features">
+            <li>0.28-acre lot</li>
+            <li>Backyard backing to a creek</li>
+            <li>Rear deck with wooded views</li>
+            <li>Direct trail system access</li>
+            <li>Gas fireplace</li>
+            <li>Washer &amp; dryer included</li>
+            <li>2-car garage</li>
+            <li>Basement storage</li>
+            <li>Quiet, established neighborhood</li>
+            <li>~15 min to Walmart HQ</li>
+          </ul>
+
+          <p class="listing-desc" style="font-style: italic; color: #6b6252;">
+            Homes with this combination of privacy, creek frontage, trail access, and proximity to Bentonville are rarely available. Schedule your private tour today.
+          </p>
+
+          <div style="margin-bottom: 20px; font-size: 13.5px; color: #4a4438;">
+            <strong>Application required</strong> — background check, credit check, employment verification, and references required.
+          </div>
+
+          <div style="display:flex; gap: 14px; flex-wrap: wrap;">
+            <a href="tel:+14793210044" class="btn btn-gold">Call Jennie: 479-321-0044</a>
+            <a href="#contact" class="btn">Inquire Online</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="arc-rule">
+
+<section id="contact" class="contact-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-eyebrow">Get In Touch</div>
+      <h2>Contact Us</h2>
+    </div>
+
+    <div class="contact-grid">
+      <div>
+        <div class="contact-block">
+          <div class="icon">◎</div>
+          <div>
+            <div class="label">Whitwick Lane Listing</div>
+            <div class="value">Contact Jennie: <a href="tel:+14793210044">479-321-0044</a></div>
+          </div>
+        </div>
+        <div class="contact-block">
+          <div class="icon">✉</div>
+          <div>
+            <div class="label">Email</div>
+            <a class="value" href="mailto:admin@ltdhousing.com">admin@ltdhousing.com</a>
+          </div>
+        </div>
+        <div class="contact-block">
+          <div class="icon">☎</div>
+          <div>
+            <div class="label">Phone</div>
+            <a class="value" href="tel:+15122227223">512-222-7223</a>
+          </div>
+        </div>
+        <div class="contact-block" style="border-bottom: none;">
+          <div class="icon">✓</div>
+          <div>
+            <div class="label">Response Time</div>
+            <div class="value">We typically respond within 1 business day</div>
+          </div>
+        </div>
+      </div>
+
+      <form class="contact-form" action="mailto:admin@ltdhousing.com" method="post" enctype="text/plain">
+        <input type="text" name="name" placeholder="Full name" required>
+        <input type="email" name="email" placeholder="Email address" required>
+        <input type="tel" name="phone" placeholder="Phone number">
+        <textarea name="message" placeholder="Tell us which property you're interested in..." required></textarea>
+        <p class="form-note">Submitting opens your email app addressed to admin@ltdhousing.com.</p>
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <hr class="arc-rule">
+    &copy; <span id="year"></span> LTD Housing · Whitwick Holdings, LLC · Property Management
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
